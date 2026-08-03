@@ -1,0 +1,5 @@
+data/raw/*.csv
+__pycache__/
+*.pyc
+venv/
+pandas-3.0.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl
