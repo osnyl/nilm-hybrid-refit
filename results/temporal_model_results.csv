@@ -1,0 +1,10 @@
+Appliance,Name,MAE (W),RMSE (W),R²,Max Power (W)
+Appliance1,Refrigerator,24.11,31.87,0.0014,1466
+Appliance2,Chest Freezer,20.63,27.43,-0.0007,960
+Appliance3,Upright Freezer,33.66,36.84,0.0012,1033
+Appliance4,TV/Microwave,4.47,63.96,-0.0002,2693
+Appliance5,Kettle,15.26,120.83,0.0002,2555
+Appliance6,Washing Machine,22.24,156.99,0.0054,2525
+Appliance7,Lighting,2.17,5.58,0.0257,58
+Appliance8,Set-top Box,6.95,10.5,0.0886,57
+Appliance9,Water Heater,102.09,213.55,0.0719,1049

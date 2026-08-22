@@ -1,0 +1,37 @@
+Appliance,Name,MAE (W),RMSE (W),R²
+Appliance1,Refrigerator (RF),17.31,26.9,0.2888
+Appliance1,Refrigerator (Symbolique),39.34,194.83,-36.3111
+Appliance1,Refrigerator (Ensemble),20.68,28.42,0.2059
+Appliance1,Refrigerator (Linéaire),24.11,31.87,0.0015
+Appliance2,Chest Freezer (RF),14.28,23.84,0.2442
+Appliance2,Chest Freezer (Symbolique),37.17,199.03,-51.689
+Appliance2,Chest Freezer (Ensemble),17.44,24.94,0.1727
+Appliance2,Chest Freezer (Linéaire),20.62,27.42,0.0002
+Appliance3,Upright Freezer (RF),21.5,29.89,0.3424
+Appliance3,Upright Freezer (Symbolique),41.39,184.75,-24.1218
+Appliance3,Upright Freezer (Ensemble),27.51,31.86,0.253
+Appliance3,Upright Freezer (Linéaire),33.61,36.82,0.0022
+Appliance4,TV/Microwave (RF),2.26,38.89,0.6302
+Appliance4,TV/Microwave (Symbolique),25.42,201.5,-8.9267
+Appliance4,TV/Microwave (Ensemble),3.37,47.54,0.4475
+Appliance4,TV/Microwave (Linéaire),4.49,63.82,0.0042
+Appliance5,Kettle (RF),11.26,100.86,0.3034
+Appliance5,Kettle (Symbolique),31.58,215.49,-2.1797
+Appliance5,Kettle (Ensemble),13.1,107.84,0.2037
+Appliance5,Kettle (Linéaire),15.04,120.39,0.0076
+Appliance6,Washing Machine (RF),6.32,79.94,0.7421
+Appliance6,Washing Machine (Symbolique),24.71,196.13,-0.5524
+Appliance6,Washing Machine (Ensemble),15.66,104.98,0.5552
+Appliance6,Washing Machine (Linéaire),25.14,154.34,0.0387
+Appliance7,Lighting (RF),1.62,4.85,0.2633
+Appliance7,Lighting (Symbolique),25.28,199.46,-1244.6825
+Appliance7,Lighting (Ensemble),1.9,5.06,0.1971
+Appliance7,Lighting (Linéaire),2.18,5.58,0.0265
+Appliance8,Set-top Box (RF),3.95,7.91,0.4826
+Appliance8,Set-top Box (Symbolique),27.54,199.38,-327.3559
+Appliance8,Set-top Box (Ensemble),5.42,8.68,0.3783
+Appliance8,Set-top Box (Linéaire),6.96,10.48,0.0922
+Appliance9,Water Heater (RF),12.42,76.47,0.881
+Appliance9,Water Heater (Symbolique),25.79,171.53,0.4012
+Appliance9,Water Heater (Ensemble),56.96,122.07,0.6968
+Appliance9,Water Heater (Linéaire),101.84,203.8,0.1547

@@ -1,0 +1,10 @@
+Appliance,Name,RF MAE,Sym MAE,RF RMSE,Sym RMSE,RF R2,Sym R2,Gain MAE
+Appliance1,Refrigerator,9.68,9.68,19.15,19.15,0.5452,0.5452,0.0
+Appliance2,Chest Freezer,10.23,10.23,21.69,21.69,0.3897,0.3897,0.0
+Appliance3,Upright Freezer,12.92,12.92,22.41,22.41,0.6089,0.6089,0.0
+Appliance4,TV_Microwave,0.05,0.52,6.65,12.34,0.7366,0.0923,-0.46
+Appliance5,Kettle,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Appliance6,Washing_Machine,3.77,3.8,58.42,58.48,0.6963,0.6957,-0.03
+Appliance7,Lighting,0.13,0.13,1.4,1.4,0.6612,0.6612,0.0
+Appliance8,Set-top_Box,0.54,0.54,2.77,2.77,0.8206,0.8206,0.0
+Appliance9,Water_Heater,0.0,0.0,0.02,0.02,0.1261,0.1131,-0.0
