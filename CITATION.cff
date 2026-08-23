@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use or refer to this project, please cite it as described below."
+title: "Hybrid NILM for Intelligent Load Shedding"
+type: software
+authors:
+  - family-names: "SOSSOU BIADJA"
+    given-names: "Charbel"
+repository-code: "https://github.com/Osnyl/nilm-hybrid-refit"
+url: "https://github.com/Osnyl/nilm-hybrid-refit"
+date-released: 2026-08-22
+abstract: "Exploratory research code and documentation for non-intrusive load monitoring with REFIT data and priority-based intelligent load-shedding concepts for low-resource household settings."
+keywords:
+  - NILM
+  - load shedding
+  - smart grids
+  - energy management
+  - REFIT
+license: "NOASSERTION"
