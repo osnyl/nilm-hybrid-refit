@@ -15,12 +15,9 @@ import pandas as pd
 import numpy as np
 
 # ---- Chemins ----
-PLAID_DIR = os.path.expanduser(
-    "~/Desktop/experience-ia-symbolique/nilm-hybrid-refit/data/raw/PLAID"
-)
-RESULTS_DIR = os.path.expanduser(
-    "~/Desktop/experience-ia-symbolique/nilm-hybrid-refit/results"
-)
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+PLAID_DIR = os.path.join(PROJECT_ROOT, "data", "raw", "PLAID")
+RESULTS_DIR = os.path.join(PROJECT_ROOT, "results")
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
 # ---- 1. Charger le meta PLAID 2017 ----

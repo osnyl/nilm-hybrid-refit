@@ -18,9 +18,13 @@ import numpy as np
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+SRC_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+import sys
+sys.path.insert(0, SRC_DIR)
 from regles_symboliques import appliquer_regles, SEUILS_PLAID
 
-BASE = os.path.expanduser("~/Desktop/experience-ia-symbolique/nilm-hybrid-refit")
+BASE = PROJECT_ROOT
 INPUT_TRAIN = os.path.join(BASE, "data/processed/echantillon_entrainement_plaid.csv")
 INPUT_TEST = os.path.join(BASE, "data/processed/echantillon_test_plaid.csv")
 OUTPUT = os.path.join(BASE, "results/resultats_modele_hybride.csv")

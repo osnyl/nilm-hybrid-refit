@@ -14,7 +14,7 @@ import os
 import gc
 import pandas as pd
 
-BASE = os.path.expanduser("~/Desktop/experience-ia-symbolique/nilm-hybrid-refit")
+BASE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 INPUT = os.path.join(BASE, "data/processed/donnees_fusionnees_refit_iawe_v3.csv")
 OUTPUT_TRAIN = os.path.join(BASE, "data/processed/echantillon_entrainement.csv")
 OUTPUT_TEST = os.path.join(BASE, "data/processed/echantillon_test.csv")

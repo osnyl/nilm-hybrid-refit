@@ -10,7 +10,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-BASE = os.path.expanduser("~/Desktop/experience-ia-symbolique/nilm-hybrid-refit")
+BASE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 INPUT = os.path.join(BASE, "results/resultats_modele_hybride.csv")
 OUTPUT = os.path.join(BASE, "figures/comparaison_rf_vs_symbolique.png")
 

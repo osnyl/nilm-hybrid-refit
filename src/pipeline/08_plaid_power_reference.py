@@ -14,7 +14,7 @@ import os
 import numpy as np
 import pandas as pd
 
-PROJECT_ROOT = os.path.expanduser("~/Desktop/experience-ia-symbolique/nilm-hybrid-refit")
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 PLAID_DIR = os.path.join(PROJECT_ROOT, "data", "raw", "PLAID")
 CSV_DIR = os.path.join(PLAID_DIR, "2017")
 OUT_DIR = os.path.join(PROJECT_ROOT, "results")
