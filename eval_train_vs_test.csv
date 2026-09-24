@@ -1,0 +1,10 @@
+Appliance,Name,"MAE (train, triche)","R² (train, triche)","MAE (test, honnête)","R² (test, honnête)",Écart R² (optimisme)
+Appliance1,Refrigerator,23.54,0.0629,23.54,0.0143,0.0486
+Appliance2,Chest Freezer,16.01,0.1412,17.51,0.0426,0.0986
+Appliance3,Upright Freezer,25.69,0.2228,29.29,0.0034,0.2194
+Appliance4,TV/Microwave,4.3,0.2409,4.68,-0.0417,0.2826
+Appliance5,Kettle,15.13,0.329,11.03,0.321,0.008
+Appliance6,Washing Machine,7.18,0.7421,9.5,0.3021,0.44
+Appliance7,Lighting,2.28,0.2167,2.07,0.0808,0.1359
+Appliance8,Set-top Box,4.8,0.3904,5.95,0.2324,0.158
+Appliance9,Water Heater,32.5,0.8818,23.25,0.8526,0.0292

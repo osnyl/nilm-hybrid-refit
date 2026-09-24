@@ -1,0 +1,4 @@
+Appareil,MAE_RF,MAE_Symbolique,RMSE_RF,RMSE_Symbolique,R2_RF,R2_Symbolique,Gain_MAE
+Fridge,25.48,25.48,45.34,45.34,-0.0179,-0.0179,0.0
+WashingMachine,14.39,14.39,124.49,124.49,0.3837,0.3837,0.0
+Television,7.55,7.55,13.07,13.07,0.0383,0.0383,0.0

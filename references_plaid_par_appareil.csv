@@ -1,0 +1,15 @@
+type,status,n_instances,P_steady_mean_W,P_steady_std_W,P_steady_min_W,P_steady_max_W,P_peak_mean_W
+Air Conditioner,highcool,39.0,72.63,107.19,23.0,628.4,228.92
+Air Conditioner,highfan,34.0,41.11,16.62,22.7,72.8,72.54
+Air Conditioner,lowcool,35.0,97.16,209.79,27.9,1227.2,263.88
+Air Conditioner,lowfan,34.0,36.64,15.29,16.9,70.4,50.03
+Fridge,off-on,52.0,245.69,237.35,3.7,1029.6,619.14
+Heater,high,20.0,545.33,97.95,377.2,645.3,553.1
+Heater,low,15.0,416.78,146.9,197.2,554.3,426.07
+Heater,medium,5.0,476.9,2.1,474.6,480.2,484.52
+Heater,off-on,10.0,540.41,172.03,375.5,706.6,546.63
+Microwave,high,26.0,624.85,172.36,427.9,930.4,853.47
+Microwave,medium,44.0,533.85,197.12,10.0,725.9,679.81
+Microwave,regular,20.0,642.73,125.06,154.1,733.5,721.99
+Vacuum,off-on,35.0,502.57,91.98,313.5,601.9,1676.79
+Washing Machine,off-on,49.0,262.86,165.04,14.5,470.1,1028.07
