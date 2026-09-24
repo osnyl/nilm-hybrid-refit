@@ -6,9 +6,9 @@
 
 ## Abstract
 
-The project investigates whether aggregate active-power measurements can support appliance-level estimation and inform a future intelligent load-management system. The current experiments use public REFIT data from United Kingdom homes. A statistical model provides the baseline, while interpretable symbolic rules are evaluated as a possible corrective layer. The longer-term engineering objective is a compact, low-cost demonstrator that can preserve essential loads when available power is limited.
+The project investigates whether aggregate active-power measurements can support appliance-level estimation and inform a future intelligent load-management system. The current experiments use public REFIT data from United Kingdom homes. A statistical model provides the baseline, while interpretable symbolic rules are evaluated as a possible corrective layer. The load-shedding idea is treated as a future application context, not as a validated controller in this repository.
 
-The repository is deliberately split between **reproducible research material**, **stored experimental evidence**, and **future hardware work**. The current public snapshot should be read as a documented research baseline, not as a validated deployable product.
+The repository is deliberately split between **research code**, **stored experimental evidence**, and **scientific documentation**. The current public snapshot should be read as a documented research baseline, not as a validated deployable product.
 
 ## Project progress
 
@@ -20,7 +20,6 @@ The repository is deliberately split between **reproducible research material**,
 | PLAID physical-reference analysis | Implemented for selected regimes | `results/references_plaid_par_appareil.csv` and pipeline scripts |
 | Symbolic-rule module | Centralized and unit-checkable | `src/regles_symboliques.py` |
 | REFIT + iAWE common-appliance pipeline | Implemented, final clean benchmark pending | `src/pipeline/` |
-| Proteus / hardware demonstrator | Concept and figures only | `docs/` and `load_data.txt` |
 | Local Benin validation | Not started | Future work |
 
 The most important current finding is methodological: stored Soft-Boost experiments do **not** improve every appliance. For example, in one 2-million-row exploratory run, the Soft-Boost MAE was unchanged for the refrigerator and higher for the washing machine and water heater. This result is retained because negative or mixed results are useful for deciding what must be validated next.
@@ -30,7 +29,7 @@ The most important current finding is methodological: stored Soft-Boost experime
 1. How well can aggregate active power estimate selected appliance channels under a documented temporal split?
 2. Can physical references from PLAID help define interpretable symbolic rules without being mistaken for a direct time-aligned measurement source?
 3. Does the symbolic layer improve a held-out test segment compared with the statistical baseline?
-4. How can the research output later inform a safe, low-voltage, priority-based educational demonstrator?
+4. Which additional temporal and physical features improve estimation without causing leakage or overfitting?
 
 ## Method
 
@@ -102,11 +101,9 @@ The stored CSV files contain results from different experiments and sample sizes
 
 The values are exploratory outputs, not a claim of field accuracy, transferability to Benin, or operational safety.
 
-## Relationship to the future educational demonstrator
+## Scientific scope and documentation
 
-The research repository is also informing a separate **low-voltage didactic bench** for studying measurement, power, priority and controlled load management. That demonstrator will use small equivalent loads rather than full household appliances. It should be developed and tested independently from any mains-connected installation.
-
-The project does not currently include a complete Proteus source file, Arduino/ESP32 demonstrator firmware, PCB design, bill of materials, field-data protocol or electrical-safety certification. These are future deliverables, not capabilities to claim today.
+This repository is strictly scientific. It documents NILM experiments, data construction, physical references and symbolic-rule evaluation. It does not claim to contain a didacticization project, a complete Proteus source file, a deployable Arduino/ESP32 controller, a PCB design, a field-data protocol or electrical-safety certification. The detailed protocol and scope are documented in [`docs/research_methodology.md`](docs/research_methodology.md), and the latest work is available in [`docs/session-reports/rapport_sessions_23_24_septembre_2026.md`](docs/session-reports/rapport_sessions_23_24_septembre_2026.md).
 
 ## Limitations and safety
 
@@ -120,9 +117,8 @@ REFIT was collected in UK homes. Its appliance mix, voltage context, wiring, occ
 2. Add tests for the mapping and symbolic-rule module.
 3. Record exact dataset versions, preprocessing settings and random seeds.
 4. Publish only small, legally shareable examples rather than raw third-party datasets.
-5. Build and evaluate the low-voltage didactic bench separately.
-6. Compare REFIT-trained estimates with a small, consent-based local pilot before making transfer claims.
-7. Archive a reviewed release and add a DOI only after the results and licensing are settled.
+5. Compare REFIT-trained estimates with a small, consent-based local pilot before making transfer claims.
+6. Archive a reviewed release and add a DOI only after the results and licensing are settled.
 
 ## Citation
 

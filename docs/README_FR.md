@@ -1,47 +1,69 @@
-# NILM hybride et gestion priorisée des charges
+# NILM hybride et règles symboliques
 
 [English version](../README.md) · **Version française**
 
-> **Statut : recherche exploratoire en cours.** Ce dépôt documente un projet sur la désagrégation non intrusive des charges électriques (NILM), les règles symboliques et les concepts de gestion priorisée de la puissance. Il ne s’agit pas d’un contrôleur prêt à l’emploi, d’un dispositif certifié ou d’une validation de terrain au Bénin.
+> **Statut : recherche scientifique exploratoire en cours.** Ce dépôt documente des expériences de désagrégation non intrusive des charges électriques (NILM), des références physiques issues de PLAID et l’évaluation de règles symboliques. Il ne s’agit pas d’un produit, d’un contrôleur validé sur le terrain ou d’un projet de didactisation.
+
+## Objet scientifique
+
+Le projet étudie si la puissance active agrégée d’un logement peut servir à estimer la consommation de certains appareils. Un modèle statistique constitue la référence. Des règles symboliques interprétables sont ensuite étudiées comme couche de correction éventuelle.
+
+Le délestage intelligent est un **contexte d’application futur**. Le dépôt actuel ne démontre pas la commande sûre et autonome d’appareils reliés au secteur. Les données principales proviennent de foyers britanniques du dataset REFIT ; elles ne prouvent donc pas la transférabilité automatique vers des foyers béninois.
 
 ## Avancée actuelle
 
-Le projet dispose maintenant d’un pipeline organisé autour de l’exploration de REFIT, de références physiques issues de PLAID, d’une fusion expérimentale REFIT–iAWE et d’un module centralisé de règles symboliques. Les résultats enregistrés montrent une conclusion importante : les règles Soft-Boost n’améliorent pas nécessairement tous les appareils. Elles doivent donc être évaluées sur un découpage temporel propre avant toute conclusion définitive.
+| Élément | État |
+|---|---|
+| Exploration de REFIT House 1 | Base exploratoire disponible |
+| Modèles linéaires et Random Forest | Résultats exploratoires stockés |
+| Comparaison temporelle | Diagnostic initial disponible |
+| Références PLAID par régime | Pipeline implémenté pour certains appareils |
+| Règles symboliques | Module centralisé ; règles actives neutralisées après dégradation observée |
+| Fusion REFIT–iAWE | Pipeline corrigé pour trois appareils communs |
+| Validation locale au Bénin | Non réalisée |
+| Benchmark final reproductible | À finaliser |
 
-Le dépôt sert aussi de base de recherche pour un futur **banc didactique basse tension**. Ce banc sera traité séparément et représentera les appareils par de petites charges équivalentes afin de rendre les essais transportables et sûrs.
+Les résultats conservés montrent une conclusion importante : les règles Soft-Boost n’améliorent pas nécessairement tous les appareils. Elles doivent donc être évaluées avec le même découpage temporel et le même jeu de test que le modèle de référence.
 
 ## Organisation
 
 ```text
 .
-├── docs/                         Rapports et documentation
-│   └── session-reports/          Rapports de sessions de travail
+├── docs/                         Rapports et méthodologie
+│   ├── research_methodology.md  Protocole et limites scientifiques
+│   └── session-reports/          Rapports de sessions
 ├── figures/                      Figures sélectionnées
 ├── results/                      Résumés CSV et résultats
 ├── src/pipeline/                 Scripts actuels de traitement
 ├── src/regles_symboliques.py     Module des règles interprétables
 ├── src/appliance_mapping.py      Mapping centralisé des appareils
-└── src/legacy/                   Anciens scripts exploratoires
+├── src/legacy/                   Anciens scripts exploratoires
+└── tests/                        Tests du module symbolique
 ```
 
-Les jeux de données bruts REFIT, iAWE et PLAID ne sont pas stockés dans Git. Ils doivent être obtenus depuis leurs sources officielles, puis placés dans `data/raw/` conformément aux conditions de leurs licences.
+Les datasets bruts REFIT, iAWE et PLAID ne sont pas stockés dans Git. Ils doivent être obtenus depuis leurs sources officielles et leurs licences doivent être respectées.
 
-## Résultats et prudence d’interprétation
+## Documentation scientifique
 
-Les fichiers de `results/` proviennent d’expériences différentes. Ils ne doivent pas être combinés en un classement unique. Les valeurs présentes sont des sorties exploratoires. Elles ne démontrent pas une précision sur le terrain, une transférabilité automatique vers les foyers béninois ou une sécurité de commande sur le secteur.
+- [Méthodologie et périmètre scientifique](research_methodology.md)
+- [Rapport Markdown des sessions des 23 et 24 septembre 2026](session-reports/rapport_sessions_23_24_septembre_2026.md)
+- [Rapport de recherche en français au format PDF](Rapport%20de%20Recherche%20Delesteur%20Intelligent%202026.pdf)
+- [Research report in English au format PDF](Intelligent%20Load%20Shedder_Research%20Report%202026.pdf)
 
-## Rapports
+## Résultats et limites
 
-- [Rapport de recherche en français](Rapport%20de%20Recherche%20Delesteur%20Intelligent%202026.pdf)
-- [Research report in English](Intelligent%20Load%20Shedder_Research%20Report%202026.pdf)
-- [Rapports de sessions](session-reports/)
+Les fichiers de `results/` proviennent d’expériences différentes. Ils ne doivent pas être combinés en un benchmark unique. Les valeurs présentes sont des sorties exploratoires et ne démontrent ni une précision sur le terrain, ni une transférabilité vers le Bénin, ni une sécurité de commande.
+
+La prochaine étape principale est de fixer un protocole chronologique entraînement/validation/test, d’enregistrer les versions de données et de comparer le modèle linéaire, le Random Forest et une version symbolique sur exactement le même test.
 
 ## Sécurité
 
-> Ne reliez jamais un montage expérimental au secteur sans isolation adaptée, protections correctement dimensionnées, supervision qualifiée et respect des règles électriques locales. Ce dépôt n’est pas une notice de câblage.
+> Ce dépôt n’est pas une notice de câblage. Aucune connexion expérimentale au secteur ne doit être réalisée sans isolation adaptée, protections correctement dimensionnées, supervision qualifiée et respect des règles électriques locales.
 
-## Prochaines étapes
+## Références
 
-La prochaine étape scientifique est de terminer le benchmark avec une séparation chronologique entraînement/validation/test, une configuration enregistrée et des métriques comparables. La prochaine étape pédagogique est de construire un banc basse tension compact pour illustrer la mesure de puissance, la hiérarchisation des charges et la décision de gestion.
+[1]: https://doi.org/10.5281/zenodo.5063428 "REFIT: Electrical Load Measurements (Cleaned)"
 
-Pour les données et les références scientifiques, voir la [documentation anglaise principale](../README.md).
+[2]: https://doi.org/10.1038/sdata.2016.122 "REFIT electrical load measurements dataset descriptor"
+
+[1] [2]
