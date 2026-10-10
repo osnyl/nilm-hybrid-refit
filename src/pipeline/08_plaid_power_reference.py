@@ -1,13 +1,13 @@
-
-
-
-
-
-
-
-
-
-
+# ============================================================
+# 08_plaid_power_reference.py
+# Calcule la puissance active réelle (P = V x I, moyennée sur un
+# cycle) à partir de PLAID, pour construire une table de référence
+# par appareil, matchable au Delta_P (en Watts) de REFIT/iAWE.
+#
+# IMPORTANT : seule la puissance en RÉGIME ÉTABLI (P_steady_W) est
+# réellement comparable au signal REFIT/iAWE à 8s. Le pic d'appel
+# (P_peak_W) est documenté mais reste invisible à cette résolution.
+# ============================================================
 
 import json
 import os
@@ -22,7 +22,7 @@ os.makedirs(OUT_DIR, exist_ok=True)
 
 SAMPLING_FREQ = 30000
 CYCLE_FREQ = 60
-WINDOW = int(SAMPLING_FREQ / CYCLE_FREQ)
+WINDOW = int(SAMPLING_FREQ / CYCLE_FREQ)  # 500 échantillons = 1 cycle
 
 TARGET_TYPES = ["Air Conditioner", "Fridge", "Washing Machine", "Vacuum",
                  "Microwave", "Heater"]
@@ -63,29 +63,29 @@ for entry in targets:
     peak_idx = int(np.argmax(np.abs(p_env)))
     time_to_peak_ms = (peak_idx / SAMPLING_FREQ) * 1000
 
-
-
-
-
-
-
+    # IMPORTANT : le régime établi (appareil ALLUMÉ, stabilisé) n'est
+    # pas toujours à la fin du clip. Pour une transition "off-on",
+    # l'appareil est ON à la fin -> dernier quart = bon.
+    # Pour une transition "on-off", l'appareil est OFF à la fin ->
+    # il faut regarder le PREMIER quart (avant la coupure), qui lui
+    # est encore ON et stabilisé.
     n = len(p_env)
     transition = entry["meta"]["appliance"].get("status", "off-on")
     if transition == "on-off":
-        steady = p_env[: n // 4]
+        steady = p_env[: n // 4]       # début du clip = encore allumé
     else:
-        steady = p_env[n * 3 // 4:]
+        steady = p_env[n * 3 // 4:]    # fin du clip = allumé stabilisé (off-on, cas standard)
     steady_power = float(np.mean(np.abs(steady)))
 
     appliance = entry["meta"]["appliance"]
     results.append({
         "id": file_id,
         "type": appliance["type"],
-        "transition": appliance.get("status", "?"),
+        "transition": appliance.get("status", "?"),  # "off-on" ou "on-off"
         "wattage_nominal": appliance.get("wattage", ""),
-        "P_peak_W": round(peak_power, 1),
+        "P_peak_W": round(peak_power, 1),           # NON comparable à REFIT/iAWE (trop rapide)
         "time_to_peak_ms": round(time_to_peak_ms, 1),
-        "P_steady_W": round(steady_power, 1),
+        "P_steady_W": round(steady_power, 1),        # COMPARABLE à Delta_P (REFIT/iAWE)
     })
 
 df_results = pd.DataFrame(results)
@@ -93,7 +93,7 @@ detail_path = os.path.join(OUT_DIR, "plaid_power_detail.csv")
 df_results.to_csv(detail_path, index=False)
 print(f" Détail sauvegardé : {detail_path}")
 
-
+# ---- Table de référence résumée, une ligne par type ----
 ref_table = df_results.groupby("type").agg(
     P_steady_W_mean=("P_steady_W", "mean"),
     P_steady_W_std=("P_steady_W", "std"),

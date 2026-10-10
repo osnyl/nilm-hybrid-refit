@@ -25,8 +25,8 @@ RANDOM_STATE = 42
 APPLIANCES = ["Fridge", "WashingMachine", "Television"]
 SOURCES = ["REFIT", "iAWE"]
 
-
-
+# Stockage : on va lire tout le dataset et garder TOUTES les lignes
+# de chaque strate, puis échantillonner à la fin.
 samples = {(a, s): [] for a in APPLIANCES for s in SOURCES}
 counts = {(a, s): 0 for a in APPLIANCES for s in SOURCES}
 
@@ -48,7 +48,7 @@ for chunk in pd.read_csv(INPUT, chunksize=CHUNK_SIZE):
     del chunk
     gc.collect()
 
-
+# Maintenant, on échantillonne aléatoirement dans chaque strate
 print("\nÉchantillonnage aléatoire par strate...")
 final_samples = []
 for key, lst in samples.items():
@@ -60,7 +60,7 @@ for key, lst in samples.items():
     n = min(N_PER_STRATE, len(full))
     sampled = full.sample(n=n, random_state=RANDOM_STATE)
 
-
+    # Vérifier les valeurs non nulles
     n_nonzero = (sampled["Puissance_Cible"] > 0).sum()
     print(f"  {key} : {len(full):,} disponibles → {n:,} échantillonnées "
           f"({n_nonzero:,} valeurs > 0)")
@@ -69,12 +69,12 @@ for key, lst in samples.items():
     del full
     gc.collect()
 
-
+# Concaténation
 print("\nConcaténation...")
 final = pd.concat(final_samples, ignore_index=True)
 print(f"  Total : {len(final):,} lignes")
 
-
+# Split temporel
 print("\nSplit temporel...")
 final["Time"] = pd.to_datetime(final["Time"])
 final = final.sort_values("Time").reset_index(drop=True)
@@ -85,7 +85,7 @@ test = final.iloc[cutoff:].copy()
 print(f"  Train : {len(train):,} lignes")
 print(f"  Test  : {len(test):,} lignes")
 
-
+# Vérification finale
 print("\nVérification des valeurs non nulles dans le train :")
 for appliance in APPLIANCES:
     n = (train[train["Appliance_Target"] == appliance]["Puissance_Cible"] > 0).sum()

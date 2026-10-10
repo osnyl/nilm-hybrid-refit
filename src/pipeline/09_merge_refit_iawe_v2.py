@@ -1,11 +1,11 @@
-
-
-
-
-
-
-
-
+# ============================================================
+# 09_merge_refit_iawe_v2.py
+# Fusionne REFIT et iAWE pour les 3 appareils réellement communs
+# (Frigo, Lave-linge, Télévision), avec le mapping OFFICIEL
+# vérifié depuis MetaData_Tables.xlsx (pas celui deviné en début
+# de session). Filtre aussi les glitches capteur (valeur appareil
+# > agrégat total = physiquement impossible).
+# ============================================================
 
 import os
 import gc
@@ -15,7 +15,7 @@ import numpy as np
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(PROJECT_ROOT, "src"))
-from appliance_mapping import REFIT_TO_IAWE_COMMON, get_appliance_name
+from appliance_mapping import REFIT_TO_IAWE_COMMON, get_appliance_name  # noqa: E402
 
 RAW_DIR = os.path.join(PROJECT_ROOT, "data", "raw")
 OUT_DIR = os.path.join(PROJECT_ROOT, "data", "processed")
@@ -47,7 +47,7 @@ def filter_impossible_values(df, appliance_col, aggregate_col="Aggregate"):
 BASE_COLS = ["Time", "Aggregate", "Delta_P", "Hour", "Source", "House_ID"]
 common_path = os.path.join(OUT_DIR, "merged_common_appliances_v2.csv")
 
-
+# ---- 1. REFIT ----
 print(" Chargement REFIT (mapping vérifié : Appliance1/5/8)...")
 refit_cols_needed = ["Time", "Aggregate"] + list(REFIT_TO_IAWE_COMMON.keys())
 refit = pd.read_csv(
@@ -76,7 +76,7 @@ del refit, chunk
 gc.collect()
 print(" Mémoire REFIT libérée.")
 
-
+# ---- 2. iAWE ----
 print("\n Chargement iAWE...")
 iawe_cols_needed = ["Time", "Aggregate"] + list(REFIT_TO_IAWE_COMMON.values())
 iawe = pd.read_csv(

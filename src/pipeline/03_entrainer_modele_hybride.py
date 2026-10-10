@@ -37,7 +37,7 @@ print(f"  Test  : {len(test):,} lignes")
 
 FEATURES = ["Aggregate", "Delta_P", "Hour"]
 APPLIANCES = ["Fridge", "WashingMachine", "Television"]
-TARGET_COL = "Puissance_Cible"
+TARGET_COL = "Puissance_Cible"  # colonne de puissance cible (générique)
 
 results = []
 

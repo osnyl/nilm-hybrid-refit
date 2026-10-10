@@ -26,20 +26,20 @@ SEUILS_PLAID = {
     },
 }
 
-
-
-
+# ============================================================
+# RÈGLES SYMBOLIQUES (désactivées pour l'instant)
+# ============================================================
 
 REGLES_PAR_APPAREIL = {
-
-
-
+    # Règles désactivées tant qu'elles ne sont pas affinées.
+    # "Fridge": {...},
+    # "WashingMachine": {...},
 }
 
 def appliquer_regles(appliance, delta, hour, pred):
     """Applique les règles symboliques si elles existent."""
     if appliance not in REGLES_PAR_APPAREIL:
-        return pred
+        return pred  # Pas de règle → prédiction inchangée
     regle = REGLES_PAR_APPAREIL[appliance]
     if regle["condition"](delta, hour, pred):
         return regle["boost"](delta, pred)

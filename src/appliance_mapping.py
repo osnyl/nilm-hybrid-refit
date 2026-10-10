@@ -1,10 +1,10 @@
-
-
-
-
-
-
-
+# ============================================================
+# appliance_mapping.py
+# Mapping officiel REFIT House 1, confirmé depuis
+# data/raw/REFIT_meta/MetaData_Tables.xlsx (feuille "House 1").
+# Source unique de vérité — tous les scripts du projet doivent
+# importer ce fichier plutôt que redéfinir leur propre mapping.
+# ============================================================
 
 REFIT_HOUSE1_APPLIANCES = {
     "Appliance1": {"name": "Fridge", "brand": "Hotpoint RLA50P"},
@@ -18,21 +18,21 @@ REFIT_HOUSE1_APPLIANCES = {
     "Appliance9": {"name": "ElectricHeater", "brand": "GLEN 2172"},
 }
 
-
-
-
-
+# Appareils communs entre REFIT House 1 et iAWE (par nom sémantique,
+# pas par numéro de canal) — c'est CE mapping qu'il faut utiliser
+# pour la fusion, pas les anciens numéros de canal supposés au
+# début de la session.
 REFIT_TO_IAWE_COMMON = {
-    "Appliance1": "Fridge",
-    "Appliance5": "WashingMachine",
-    "Appliance8": "Television",
+    "Appliance1": "Fridge",           # REFIT Fridge <-> iAWE Fridge
+    "Appliance5": "WashingMachine",   # REFIT WashingMachine <-> iAWE WashingMachine
+    "Appliance8": "Television",       # REFIT Television <-> iAWE Television
 }
 
-
-
+# Appareils REFIT sans équivalent iAWE — restent sur leur source
+# unique, jamais fusionnés avec une autre maison.
 REFIT_EXCLUSIVE = ["Appliance2", "Appliance3", "Appliance4", "Appliance6", "Appliance7", "Appliance9"]
 
-
+# Appareils iAWE sans équivalent REFIT — idem.
 IAWE_EXCLUSIVE = ["AC_Unit1", "AC_Unit2", "ClothesIron", "WaterMotor"]
 
 

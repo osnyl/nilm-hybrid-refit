@@ -14,17 +14,17 @@ import os
 
 os.makedirs('results', exist_ok=True)
 
-
-
-
+# ============================================
+# 1. LOAD DATA
+# ============================================
 print(" Loading CLEAN_House1.csv...")
 df = pd.read_csv('data/raw/CLEAN_House1.csv')
 df_sample = df.head(500000).copy()
 print(f" Loaded {len(df_sample)} rows.\n")
 
-
-
-
+# ============================================
+# 2. LINEAR MODELS (SAME CORE)
+# ============================================
 class LinearModel:
     def __init__(self, lr=0.1, epochs=1000):
         self.lr = lr
@@ -59,26 +59,26 @@ def denormalize(pred_norm, y_min, y_max):
     return pred_norm * (y_max - y_min) + y_min
 
 X_raw = df_sample[['Aggregate']].values
-y_app6 = df_sample['Appliance6'].values
-y_app9 = df_sample['Appliance9'].values
+y_app6 = df_sample['Appliance6'].values  # Washing Machine
+y_app9 = df_sample['Appliance9'].values  # Water Heater
 
 print(" Training Linear Models...")
-
+# Washing Machine
 X_norm, y_norm, X_min, X_max, y_min6, y_max6 = normalize(X_raw, y_app6)
 model6 = LinearModel()
 model6.fit(X_norm, y_norm)
 pred_raw6 = denormalize(model6.predict(X_norm), y_min6, y_max6)
 
-
+# Water Heater
 X_norm, y_norm, X_min, X_max, y_min9, y_max9 = normalize(X_raw, y_app9)
 model9 = LinearModel()
 model9.fit(X_norm, y_norm)
 pred_raw9 = denormalize(model9.predict(X_norm), y_min9, y_max9)
 print(" Training complete.\n")
 
-
-
-
+# ============================================
+# 3. SYMBOLIC V3 : SOFT-BOOST (GENTLE CORRECTION)
+# ============================================
 print(" Applying SOFT-BOOST corrections...")
 
 agg = X_raw.flatten()
@@ -93,7 +93,7 @@ corrected_wh = np.copy(pred_raw9)
 for i in range(n):
     power = agg[i]
 
-
+    # Update counters
     if power > 1500:
         counter_high_1500 += 1
     else:
@@ -104,33 +104,33 @@ for i in range(n):
     else:
         counter_high_2000 = 0
 
-
-
-
+    # ========== RULE 1: WATER HEATER (Long duration) ==========
+    # If >1500W for more than 10 min (40 intervals), ADD 200W to WH prediction.
+    # We do NOT touch WM, because both can be on simultaneously.
     if counter_high_1500 > 40:
         corrected_wh[i] = min(2500, corrected_wh[i] + 200)
 
-
-
+    # ========== RULE 2: WASHING MACHINE (Short spike) ==========
+    # If >2000W for less than 5 min (20 intervals), ADD 200W to WM prediction.
     if power > 2000 and counter_high_2000 < 20:
         corrected_wm[i] = min(2500, corrected_wm[i] + 200)
 
-
+    # ========== RULE 3: Physical Safety (Clipping) ==========
     if corrected_wm[i] < 0: corrected_wm[i] = 0
     if corrected_wm[i] > 2500: corrected_wm[i] = 2500
     if corrected_wh[i] < 0: corrected_wh[i] = 0
     if corrected_wh[i] > 2500: corrected_wh[i] = 2500
 
-
+    # ========== RULE 4: Low total power = Nothing can be ON ==========
     if power < 300:
         corrected_wm[i] = 0
         corrected_wh[i] = 0
 
 print(" Corrections applied.\n")
 
-
-
-
+# ============================================
+# 4. EVALUATION (BEFORE / AFTER)
+# ============================================
 mae_wm_raw = np.mean(np.abs(pred_raw6 - y_app6))
 rmse_wm_raw = np.sqrt(np.mean((pred_raw6 - y_app6) ** 2))
 mae_wm_corr = np.mean(np.abs(corrected_wm - y_app6))
@@ -164,9 +164,9 @@ print("   - Les règles 'douces' (V3) corrigent légèrement les sous-estimation
 print("   - L'hybride ML+Symbolique est plus robuste que le ML seul.")
 print("   - L'échec des V1 et V2 nous a appris à respecter la physique du système.")
 
-
-
-
+# ============================================
+# 5. VISUALIZATION
+# ============================================
 fig, axes = plt.subplots(2, 1, figsize=(14, 10))
 idx = slice(500, 1500)
 
