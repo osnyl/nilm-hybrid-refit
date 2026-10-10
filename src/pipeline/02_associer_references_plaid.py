@@ -45,7 +45,7 @@ def enrich(file_in, file_out, label):
     merged = df.merge(plaid_simple, left_on="plaid_type", right_on="type", how="left", suffixes=("", "_plaid"))
     merged = merged.drop(columns=["plaid_type", "type"], errors="ignore")
     merged.to_csv(file_out, index=False)
-    print(f"  ✅ {len(merged):,} lignes écrites dans {file_out}")
+    print(f"   {len(merged):,} lignes écrites dans {file_out}")
     print(f"  Références PLAID manquantes : {merged['P_steady_mean_W'].isna().sum():,}")
     return merged
 
@@ -54,4 +54,4 @@ test = enrich(INPUT_TEST, OUTPUT_TEST, "echantillon_test")
 
 del plaid, plaid_simple, train, test
 gc.collect()
-print("\n✅ Terminé.")
+print("\n Terminé.")

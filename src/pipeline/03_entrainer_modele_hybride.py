@@ -37,7 +37,7 @@ print(f"  Test  : {len(test):,} lignes")
 
 FEATURES = ["Aggregate", "Delta_P", "Hour"]
 APPLIANCES = ["Fridge", "WashingMachine", "Television"]
-TARGET_COL = "Puissance_Cible"  # colonne de puissance cible (générique)
+TARGET_COL = "Puissance_Cible"
 
 results = []
 
@@ -47,7 +47,7 @@ for appliance in APPLIANCES:
     test_app = test[test["Appliance_Target"] == appliance]
 
     if len(train_app) == 0 or len(test_app) == 0:
-        print(f"  ⚠️ Pas assez de données, on passe.")
+        print(f"   Pas assez de données, on passe.")
         continue
 
     X_train = train_app[FEATURES].values
@@ -101,14 +101,14 @@ for appliance in APPLIANCES:
 
 df_results = pd.DataFrame(results)
 print("\n" + "=" * 90)
-print("📊 RÉSULTATS FINAUX (avec PLAID + Soft-Boost)")
+print(" RÉSULTATS FINAUX (avec PLAID + Soft-Boost)")
 print("=" * 90)
 print(df_results.to_string(index=False))
 print("=" * 90)
 
 os.makedirs(os.path.dirname(OUTPUT), exist_ok=True)
 df_results.to_csv(OUTPUT, index=False)
-print(f"\n✅ Sauvegardé : {OUTPUT}")
+print(f"\n Sauvegardé : {OUTPUT}")
 
 del train, test, df_results
 gc.collect()

@@ -30,8 +30,8 @@ def engineer_features(df):
 
 BASE_COLS = ["Time", "Aggregate", "Delta_P", "Hour", "Source", "House_ID"]
 
-# ---- 1. REFIT ----
-print("📂 Chargement REFIT...")
+
+print(" Chargement REFIT...")
 refit_cols = ["Time", "Aggregate"] + list(REFIT_TO_IAWE_COMMON.keys())
 refit = pd.read_csv(
     os.path.join(RAW_DIR, "CLEAN_House1.csv"),
@@ -41,25 +41,25 @@ refit = pd.read_csv(
 refit = engineer_features(refit)
 refit["Source"] = "REFIT"
 refit["House_ID"] = "REFIT_House1"
-print(f"✅ REFIT : {len(refit)} lignes.")
+print(f" REFIT : {len(refit)} lignes.")
 
-# Empiler les 3 appareils avec UNE SEULE colonne cible
+
 chunks = []
 for refit_col, final_name in REFIT_TO_IAWE_COMMON.items():
     real_name = get_appliance_name(refit_col)
     chunk = refit[BASE_COLS].copy()
     chunk["Appliance_Target"] = final_name
-    chunk["Puissance_Cible"] = refit[refit_col].values  # <-- UNE SEULE COLONNE
+    chunk["Puissance_Cible"] = refit[refit_col].values
     chunks.append(chunk)
     print(f"   {real_name} → {len(chunk)} lignes")
 
 refit_final = pd.concat(chunks, ignore_index=True)
 del refit, chunks
 gc.collect()
-print(f"✅ REFIT empilé : {len(refit_final)} lignes")
+print(f" REFIT empilé : {len(refit_final)} lignes")
 
-# ---- 2. iAWE ----
-print("\n📂 Chargement iAWE...")
+
+print("\n Chargement iAWE...")
 iawe_cols = ["Time", "Aggregate"] + list(REFIT_TO_IAWE_COMMON.values())
 iawe = pd.read_csv(
     os.path.join(RAW_DIR, "CLEAN_iAWE_house1.csv"),
@@ -69,31 +69,31 @@ iawe = pd.read_csv(
 iawe = engineer_features(iawe)
 iawe["Source"] = "iAWE"
 iawe["House_ID"] = "iAWE_House1"
-print(f"✅ iAWE : {len(iawe)} lignes.")
+print(f" iAWE : {len(iawe)} lignes.")
 
 chunks = []
 for final_name in REFIT_TO_IAWE_COMMON.values():
     chunk = iawe[BASE_COLS].copy()
     chunk["Appliance_Target"] = final_name
-    chunk["Puissance_Cible"] = iawe[final_name].values  # <-- UNE SEULE COLONNE
+    chunk["Puissance_Cible"] = iawe[final_name].values
     chunks.append(chunk)
     print(f"   {final_name} → {len(chunk)} lignes")
 
 iawe_final = pd.concat(chunks, ignore_index=True)
 del iawe, chunks
 gc.collect()
-print(f"✅ iAWE empilé : {len(iawe_final)} lignes")
+print(f" iAWE empilé : {len(iawe_final)} lignes")
 
-# ---- 3. Fusion finale ----
-print("\n🔗 Fusion REFIT + iAWE...")
+
+print("\n Fusion REFIT + iAWE...")
 final = pd.concat([refit_final, iawe_final], ignore_index=True)
-print(f"✅ Total : {len(final):,} lignes")
+print(f" Total : {len(final):,} lignes")
 
-# Sauvegarde
+
 final.to_csv(OUTPUT, index=False)
-print(f"✅ Sauvegardé : {OUTPUT}")
+print(f" Sauvegardé : {OUTPUT}")
 
-# Aperçu
+
 print("\nAperçu :")
 print(final.head(10).to_string())
 
